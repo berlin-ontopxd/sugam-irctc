@@ -1,0 +1,9 @@
+SUGAM: Simplified Unified Guidance and Assistance for Mobility
+
+An independent prototype for simplifying natural-language railway booking workflows.
+
+IMPORTANT DISCLOSURE:
+SUGAM is not an official IRCTC or government system and is not affiliated with IRCTC.
+The prototype is designed for hackathon demonstration and uses synthetic/mock railway
+inventory, passenger records, payment and PNR generation. It does not perform live
+ticket booking or interfere with production government systems.

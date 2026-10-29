@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SUGAM — Simplified Unified Guidance and Assistance for Mobility</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<header>
+  <div class="logo"><span>S</span> SUGAM</div>
+  <nav>
+    <a href="#about">Introduction</a><a href="#problem">Problem</a><a href="#how">How it works</a><a href="#hackathon">Hackathon brief</a><a href="#research">Research</a><a href="#safety">Limitations</a>
+  </nav>
+  <div class="author">Shubham Kashyap Jena · NST–ADYPU</div>
+</header>
+
+<main>
+<section class="hero" id="about">
+  <div class="eyebrow">BUILD WHAT MOVES INDIA · INDEPENDENT PROTOTYPE</div>
+  <h1>Tell us where you're going.<br><em>We'll handle the translation.</em></h1>
+  <p>Sugam is a natural-language railway booking prototype. Instead of forcing a citizen to translate a travel request into many fields, it lets them describe what they want in everyday language and turns that request into a structured, reviewable booking intent.</p>
+  <div class="notice"><strong>What Sugam is:</strong> an independent research prototype exploring simpler public-service interactions. <strong>What it is not:</strong> an official IRCTC product, a live booking agent, or a replacement for government authentication, payment or reservation systems.</div>
+
+  <div class="composer">
+    <label for="request">TRY THE PROTOTYPE</label>
+    <textarea id="request" rows="4" placeholder="Book 2 Tatkal 3AC tickets from Pune to Delhi tomorrow for Rahul Sharma age 29 male and Priya age 27 female."></textarea>
+    <div class="chips">
+      <button data-example="Book 2 Tatkal 3AC tickets from Pune to Delhi tomorrow for Rahul Sharma age 29 male and Priya age 27 female.">English example</button>
+      <button data-example="Mujhe kal Pune se Delhi 2 Tatkal 3AC tickets chahiye.">Hinglish example</button>
+    </div>
+    <button id="understand" class="primary">Understand my request →</button>
+    <div id="status" class="status"></div>
+  </div>
+  <div class="trust"><span>✓ English + Hinglish</span><span>✓ OpenAI-powered intent parsing</span><span>✓ Synthetic workflow</span><span>✓ No live booking</span></div>
+</section>
+
+<section id="intentSection" class="section hidden">
+  <div class="sectionTop"><div><div class="eyebrow">01 · AI INTERPRETATION</div><h2>Sugam understood</h2></div><span class="tag">gpt-4o-mini</span></div>
+  <div id="intentGrid" class="grid"></div>
+  <div class="notice">Review the extracted intent before continuing. Deterministic validation remains responsible for the workflow; the model is not treated as the booking authority.</div>
+  <button id="findTrains" class="primary">Confirm & find synthetic trains →</button>
+</section>
+
+<section id="trainsSection" class="section hidden">
+  <div class="sectionTop"><div><div class="eyebrow">02 · SYNTHETIC AVAILABILITY</div><h2>Choose a train</h2></div><span class="tag">MOCK DATA</span></div>
+  <div class="trains">
+    <article class="train"><div><h3>Rajdhani Express · Synthetic</h3><p>17:10 → 07:40 · 14h 30m<br>3A · Tatkal · 8 synthetic seats</p></div><div><strong>₹1,850</strong><button class="small" data-select="1850">Select</button></div></article>
+    <article class="train"><div><h3>Deccan–Delhi Express · Synthetic</h3><p>21:20 → 13:15 · 15h 55m<br>3A · Tatkal · 3 synthetic seats</p></div><div><strong>₹1,620</strong><button class="small" data-select="1620">Select</button></div></article>
+  </div>
+</section>
+
+<section id="passengerSection" class="section hidden"><div class="eyebrow">03 · REVIEW</div><h2>Passenger confirmation</h2><div id="passengers" class="people"></div><button id="toPayment" class="primary">Continue to simulated UPI →</button></section>
+<section id="paymentSection" class="section hidden"><div class="center"><div class="eyebrow">04 · PAYMENT BOUNDARY</div><h2>Simulated UPI</h2><p>No real money moves. This screen represents the payment boundary for the prototype.</p><div class="payment"><span>demo@upi</span><strong id="amount">₹1,850</strong></div><button id="pay" class="primary">Simulate successful payment</button></div></section>
+<section id="confirmationSection" class="section hidden"><div class="center"><div class="success">✓</div><div class="eyebrow">05 · COMPLETE CITIZEN JOURNEY</div><h2>Prototype journey complete.</h2><p>Synthetic PNR: <strong id="pnr"></strong></p><p>No real railway ticket has been booked. Train inventory, passenger records, payment and PNR are simulated.</p><button class="primary" onclick="location.reload()">Start another request</button></div></section>
+
+<section id="problem" class="section">
+  <div class="sectionTop"><div><div class="eyebrow">THE PROBLEM</div><h2>Railway booking asks citizens to translate their intent into forms.</h2></div><span class="tag">PROBLEM STATEMENT</span></div>
+  <div class="notice"><strong>Problem statement:</strong> A citizen may know exactly where they want to go, when they want to travel, who is travelling and what class or quota they need, yet the digital booking journey can require that intent to be translated into platform-specific fields, choices and error-prone steps. Sugam investigates whether a conversational layer can reduce this translation burden while keeping the citizen in control and making the boundaries between AI, validation and official services explicit.</div>
+  <div class="grid">
+    <article><b>01</b><h3>Interaction friction</h3><p>Users must convert a natural travel intention into platform-specific fields, selections and steps.</p></article>
+    <article><b>02</b><h3>Language & digital familiarity</h3><p>Public digital services serve people with different levels of language, device and digital familiarity.</p></article>
+    <article><b>03</b><h3>Time-sensitive journeys</h3><p>Railway booking can involve availability, authentication, payment and error recovery where clarity matters.</p></article>
+  </div>
+  <p class="mutedText"><strong>Research hypothesis:</strong> If citizens can describe a booking request naturally and review a transparent structured intent before execution, the number of manual translation steps required from the citizen should decrease.</p>
+</section>
+
+<section id="how" class="section"><div class="eyebrow">THE PRODUCT IDEA</div><h2>Less translation. More intention.</h2><div class="grid three"><article><b>01</b><h3>Say what you want</h3><p>Describe the journey naturally instead of translating it into many fields.</p></article><article><b>02</b><h3>AI structures intent</h3><p>OpenAI extracts route, date, quota, class and passenger information into structured data.</p></article><article><b>03</b><h3>Code controls execution</h3><p>Deterministic application logic validates the AI output before the synthetic workflow continues.</p></article></div></section>
+
+<section id="hackathon" class="section">
+  <div class="sectionTop"><div><div class="eyebrow">HACKATHON BRIEF</div><h2>What the challenge asks for — and how Sugam responds.</h2></div><span class="tag">SUBMISSION GUIDE</span></div>
+  <div class="notice"><strong>Important:</strong> This section is a project-facing interpretation of the challenge brief shown in the official Build What Moves India page. The exact submission form and portal fields remain the source of truth.</div>
+
+  <article class="briefBlock"><h3>1 · The challenge</h3><p>The challenge is about building a meaningful product for real Indian users and improving an important citizen journey. A strong entry should focus on a clearly defined user problem rather than adding AI only as a submission requirement.</p></article>
+  <article class="briefBlock"><h3>2 · What you are expected to build</h3><ul><li>A working prototype built with Codex or meaningfully powered by an OpenAI model.</li><li>A solution to one clearly defined user problem.</li><li>A complete main journey that can be experienced from start to finish.</li><li>An experience that is easier to understand or use than the current journey.</li><li>A design suitable for real Indian users, including mobile users, slower connections and people with different levels of digital experience.</li><li>Mock or synthetic data wherever personal information, payments, OTPs or government systems would normally be involved.</li></ul></article>
+  <article class="briefBlock"><h3>3 · What makes a strong build</h3><p>A strong submission makes the following obvious:</p><ul><li><strong>Who is facing the problem?</strong> Define the citizen/user clearly.</li><li><strong>What is difficult today?</strong> Explain the existing friction rather than assuming it.</li><li><strong>What did you change?</strong> Show the new interaction and why it is different.</li><li><strong>Why is your version better?</strong> Explain the measurable or observable improvement.</li><li><strong>What works today, and what is mocked?</strong> Separate working prototype behavior from dependencies that are simulated.</li><li><strong>How could it scale safely?</strong> Explain the path from prototype to a responsible production architecture.</li><li><strong>Show the complete citizen journey.</strong> A static design alone is not enough; interactions should work from beginning to end.</li></ul></article>
+  <article class="briefBlock warning"><h3>4 · What not to do</h3><ul><li>Do not access, test or interfere with a live government system.</li><li>Do not reverse-engineer private systems or use undocumented private APIs.</li><li>Do not scrape personal or restricted information.</li><li>Do not use real Aadhaar numbers, PAN details, passwords, OTPs, payment details, health information or other sensitive data.</li><li>Do not present the prototype as an official government product.</li><li>Do not use government logos in a way that suggests approval or partnership.</li><li>Do not submit an old project with only small changes.</li><li>Do not include code, assets or data you do not have permission to use.</li></ul></article>
+  <article class="briefBlock"><h3>5 · Submission checklist</h3><ul><li>Use the same registered email address consistently across the hackathon process.</li><li>If entering as a team of two, use your partner's registered email where the form asks for it; if solo, leave the partner field blank where instructed.</li><li>Make sure every submitted link works without requesting access.</li><li>Provide a working prototype link that reviewers can open and test.</li><li>Clearly disclose mock data, simulated behavior and external dependencies.</li><li>Include your problem statement, product explanation, research evidence and limitations so reviewers can understand the decisions behind the build.</li><li>Check the official submission form for the exact final fields, file requirements and deadline before submitting.</li></ul></article>
+  <article class="briefBlock"><h3>6 · How builds will be judged</h3><div class="judgeGrid"><div><strong>Problem</strong><span>Is this a real and important user problem?</span></div><div><strong>Working build</strong><span>Does the main journey actually work?</span></div><div><strong>Usability</strong><span>Is the experience simpler, clearer and more accessible?</span></div><div><strong>Product thinking</strong><span>Are the choices thoughtful and well explained?</span></div><div><strong>End-to-end thinking</strong><span>Does the solution address backend, infrastructure and process—not just the interface?</span></div><div><strong>Honesty</strong><span>Are limitations, mock data and dependencies clearly disclosed?</span></div></div></article>
+  <article class="briefBlock"><h3>7 · What happens next</h3><p>The brief describes selection in two stages after the form closes, beginning with a shortlist of 250. Keep the same registered email throughout the process because the organizers use it to track an entry. Later stages are determined by the organizers.</p></article>
+</section>
+
+<section id="research" class="section">
+  <div class="sectionTop"><div><div class="eyebrow">RESEARCH PAPER</div><h2>Evidence behind the product decision.</h2></div><span class="tag">SECONDARY RESEARCH</span></div>
+  <p class="mutedText">The accompanying research synthesis examines railway and IRCTC user experience, Indian e-government usability, conversational public-service interfaces, AI-assisted intent interpretation, and the safety boundaries required for a responsible prototype.</p>
+  <div class="grid"><article><b>RESEARCH OBJECTIVE</b><h3>Understand the friction</h3><p>Examine interaction complexity, accessibility, mobile readiness, citizen experience and the role of conversational interaction in public services.</p></article><article><b>METHODOLOGY</b><h3>Evidence synthesis</h3><p>Secondary research across official documentation, HCI/NLP research and contextual public reporting, used to frame design hypotheses rather than claim a completed user trial.</p></article><article><b>KEY FINDING</b><h3>AI should interpret, not control</h3><p>The model can translate flexible language into structured intent, while deterministic application logic validates fields and controls execution.</p></article></div>
+  <div class="notice"><strong>Architecture principle:</strong> Citizen intent → AI-assisted interpretation → structured booking intent → user confirmation → deterministic validation → synthetic workflow.</div>
+  <a href="/Sugam_IRCTC_Research_Paper.pdf" target="_blank" rel="noopener" class="primary" style="display:block;text-align:center;text-decoration:none;margin-top:16px">Read the full research paper (PDF) →</a>
+</section>
+
+<section id="safety" class="section dark">
+  <div class="eyebrow">LIMITATIONS & SAFETY</div><h2>What this prototype can—and cannot—claim.</h2>
+  <div class="grid">
+    <article><b>01</b><h3>Research limitation</h3><p>The research is primarily secondary research. The exact Sugam workflow has not yet been validated through a controlled study with a representative passenger population, so usability and accuracy claims remain hypotheses to test.</p></article>
+    <article><b>02</b><h3>OpenAI API limitation</h3><p>The live AI step depends on the project's OpenAI API key, API account configuration, available API credits and model/service availability. During development, the prototype may show an API quota or configuration error even when the website itself is deployed correctly. This is a dependency of the AI service, not evidence that the Netlify deployment failed.</p></article>
+    <article><b>03</b><h3>Technical limitation</h3><p>Network failures, invalid configuration, expired or unavailable credentials, rate limits and service-side errors can interrupt live parsing. The API key must remain server-side and must never be placed in browser code or exposed in screenshots.</p></article>
+    <article><b>04</b><h3>Service limitation</h3><p>Sugam does not claim to replace official authentication, availability, payment, reservation or government controls. Production integration would require authoritative service interfaces, security review, privacy controls, reliability testing and additional validation.</p></article>
+    <article><b>05</b><h3>Prototype-data limitation</h3><p>Train inventory, passenger records, seat allocation, payment and PNR generation are synthetic or simulated. The demo is designed to prove the citizen journey without touching a live railway or government system.</p></article>
+    <article><b>06</b><h3>Model limitation</h3><p>Natural-language models can misunderstand ambiguous dates, stations, passenger details or preferences. User confirmation and deterministic validation are therefore deliberate safety boundaries rather than optional UI steps.</p></article>
+  </div>
+  <div class="notice"><strong>Responsible-use boundary:</strong> SUGAM is an independent prototype for simplifying natural-language railway booking workflows. It is not an official IRCTC or government system and is not affiliated with IRCTC. It does not access, test, reverse-engineer or interfere with live government systems. No real Aadhaar, PAN, passwords, OTPs, payment credentials or production booking accounts are required.</div>
+  <p class="mutedText"><strong>Next evaluation:</strong> task-completion rate, time on task, interaction count, clarification rate, extraction accuracy, error recovery, perceived ease of use and accessibility across devices and levels of digital familiarity.</p>
+</section>
+
+<section class="creator-section">
+  <div class="creator-card">
+    <div class="creator-brand">
+      <div class="creator-name">Shubham Kashyap Jena</div>
+      <div class="creator-affiliation">
+        <span class="nst-mark">N</span>
+        <span><strong>NST–ADYPU</strong><small>Newton School of Technology · Ajeenkya DY Patil University</small></span>
+      </div>
+    </div>
+
+    <div class="creator-links" aria-label="Shubham's social profiles">
+      <a href="https://www.instagram.com/sarcastix.___.shubhammmm/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+      </a>
+      <a href="https://github.com/berlin-ontopxd" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i><span>GitHub</span>
+      </a>
+      <a href="https://www.linkedin.com/in/shubham-kashyap-jena-6a444927a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin"></i><span>LinkedIn</span>
+      </a>
+    </div>
+
+    <blockquote>
+      “Make the journey simpler, so people can spend less time fighting the interface—and more time moving forward.”
+    </blockquote>
+  </div>
+</section>
+
+
+<section class="video-section" id="demo-video">
+  <div class="section-kicker">DEMO VIDEO</div>
+  <h2>See SUGAM in action</h2>
+  <p class="section-lead">A short walkthrough of the independent SUGAM prototype and its intended natural-language railway booking workflow.</p>
+  <div class="video-frame">
+    <video controls preload="metadata" playsinline>
+      <source src="hackathon-video.mp4" type="video/mp4">
+      Your browser does not support embedded video.
+    </video>
+  </div>
+</section>
+
+</main>
+
+<footer><span>Sugam · Shubham Kashyap Jena · NST–ADYPU</span><span>Independent prototype · Not affiliated with IRCTC</span></footer>
+<script src="/app.js"></script>
+</body>
+</html>
